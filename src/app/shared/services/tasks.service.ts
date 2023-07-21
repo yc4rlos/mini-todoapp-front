@@ -27,5 +27,9 @@ export class TasksService {
     return this.http.post<ITask>(`${environment.apiUrl}/tasks`, createTask);
   }
 
+  delete(id: string) {
+    return this.http.delete(`${environment.apiUrl}/tasks/${id}`);
+  }
+
 
 }

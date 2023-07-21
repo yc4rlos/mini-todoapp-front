@@ -24,9 +24,20 @@
         >
         </textarea>
       </mat-form-field>
-      <button mat-button type="submit">
-        {{ mode == "create" ? "Adicionar" : "Atualizar" }}
-      </button>
+      <div class="buttons">
+        <button mat-button type="submit">
+          {{ mode == "create" ? "Adicionar" : "Atualizar" }}
+        </button>
+        <button
+          mat-button
+          type="button"
+          class="delete"
+          *ngIf="mode == 'edit'"
+          (click)="onDelete()"
+        >
+          Deletar
+        </button>
+      </div>
     </form>
   </div>
 </div>

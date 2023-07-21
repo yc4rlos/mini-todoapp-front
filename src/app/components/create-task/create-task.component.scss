@@ -6,7 +6,20 @@ form {
   gap: 10px;
   flex-direction: column;
 
-  button[type="submit"] {
-    background-color: $purple-main-color;
+  .buttons {
+    display: flex;
+    gap: 10px;
+
+    button {
+      width: 100%;
+    }
+
+    button[type="submit"] {
+      background-color: $purple-main-color;
+    }
+
+    button.delete {
+      background-color: $red-warning-color;
+    }
   }
 }

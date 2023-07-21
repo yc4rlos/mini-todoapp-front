@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +16,7 @@ import { TasksService } from 'src/app/shared/services/tasks.service';
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, MatDialogModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatButtonModule]
+  imports: [ReactiveFormsModule, MatDialogModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatButtonModule, CommonModule]
 })
 export class CreateTaskComponent implements OnInit {
 
@@ -80,7 +81,17 @@ export class CreateTaskComponent implements OnInit {
       this.formSubmitted = true;
       this.onClose();
     });
+  }
 
+  onDelete() {
+    const snackbarRef = this.snackbar.open('Deseja deletar essa tarefa?', 'Sim', { duration: 5000 });
+    snackbarRef.onAction().subscribe(() => {
+      this.tasksService.delete(this.task.id).subscribe(() => {
+        this.snackbar.open('Tarefa deletada!', '', { duration: 4000 });
+        this.formSubmitted = true;
+        this.onClose();
+      });
+    });
   }
 
   onClose() {
