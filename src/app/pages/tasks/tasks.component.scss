@@ -3,16 +3,48 @@
 main {
   div.content {
     margin: 20px;
-  }
 
-  div.add-button {
-    display: flex;
-    justify-content: flex-end;
+    div.add-button {
+      display: flex;
+      justify-content: flex-end;
 
-    button {
-      background-color: $purple-main-color;
-      mat-icon {
-        margin: 0;
+      button {
+        background-color: $purple-main-color;
+        mat-icon {
+          margin: 0;
+        }
+      }
+    }
+
+    .task-list {
+      margin: 20px 0;
+      color: white;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+
+      div {
+        border-radius: 8px;
+        padding: 6px 10px;
+        background: $black-color;
+
+        div.header {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+
+          h3 {
+            margin: 0;
+          }
+
+          button.edit {
+            width: 24px;
+          }
+        }
+
+        p.description {
+          margin: 10px;
+        }
       }
     }
   }

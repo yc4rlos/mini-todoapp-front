@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ICreateTask } from 'src/app/shared/models/create-task.interface';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { TasksService } from 'src/app/shared/services/tasks.service';
 
 @Component({
@@ -19,6 +18,8 @@ import { TasksService } from 'src/app/shared/services/tasks.service';
 })
 export class CreateTaskComponent implements OnInit {
 
+  formSubmitted = false;
+
   taskForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('')
@@ -27,8 +28,7 @@ export class CreateTaskComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<CreateTaskComponent>,
     private snackbar: MatSnackBar,
-    private tasksService: TasksService,
-    private authService: AuthService
+    private tasksService: TasksService
   ) { }
 
   ngOnInit() {
@@ -40,12 +40,11 @@ export class CreateTaskComponent implements OnInit {
       return;
     }
 
-    const userId = this.authService.getCurrentUser()?.id;
-
-    const task = { ...this.taskForm.value, userId } as ICreateTask
+    const task = { ...this.taskForm.value } as ICreateTask;
 
     this.tasksService.create(task).subscribe(() => {
       this.snackbar.open('Tarefa registrada!', '', { duration: 4000 });
+      this.formSubmitted = true;
       this.onClose();
     });
   }

@@ -7,5 +7,19 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
+
+    <div class="task-list">
+      <div *ngFor="let task of taskDataSource">
+        <div class="header">
+          <h3>{{ task.title }}</h3>
+          <button mat-button class="edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <p class="description">
+          {{ task.description }}
+        </p>
+      </div>
+    </div>
   </div>
 </main>
