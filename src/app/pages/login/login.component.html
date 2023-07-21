@@ -1,0 +1,28 @@
+<main>
+  <div class="card">
+    <img src="./assets/images/Mesha-logo.png" alt="Logo Mesha Tecnologia" />
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" label="Digite seu e-mail" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          label="Digite sua senha"
+          [type]="showPassword ? 'text' : 'password'"
+        />
+      </mat-form-field>
+      <mat-checkbox formControlName="remember" color="primary"
+        >Lembrar de mim</mat-checkbox
+      >
+      <button mat-button type="submit">Entrar</button>
+      <div class="create-account">
+        <label>Criar conta</label>
+      </div>
+    </form>
+  </div>
+</main>
