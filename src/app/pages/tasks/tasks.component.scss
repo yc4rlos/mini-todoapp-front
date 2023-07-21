@@ -4,11 +4,18 @@ main {
   div.content {
     padding: 20px;
 
-    div.add-button {
+    > div.header {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(123, 123, 123, 0.3);
+      align-items: center;
+
+      mat-form-field {
+        width: 80%;
+      }
 
       button {
+        margin-bottom: 18px;
         background-color: $purple-main-color;
         mat-icon {
           margin: 0;
@@ -30,7 +37,7 @@ main {
         padding: 6px 16px;
         background: $black-color;
 
-        div.header {
+        > div.header {
           height: auto;
           align-items: center;
           display: flex;

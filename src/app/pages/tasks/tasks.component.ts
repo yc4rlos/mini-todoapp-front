@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateTaskComponent } from 'src/app/components/create-task/create-task.component';
 import { ITask } from 'src/app/shared/models/task.interface';
 import { TasksService } from 'src/app/shared/services/tasks.service';
+import { startWith, debounceTime, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -13,6 +15,8 @@ import { TasksService } from 'src/app/shared/services/tasks.service';
 export class TasksComponent implements OnInit {
 
   taskDataSource: ITask[] = [];
+
+  findControl = new FormControl('');
 
   displayedColumns = ['name', 'description',];
 
@@ -27,9 +31,13 @@ export class TasksComponent implements OnInit {
   }
 
   setTaskDataSource() {
-    this.tasksService.getAll().subscribe(data => {
-      this.taskDataSource = data;
-    });
+    this.findControl.valueChanges.pipe(
+      startWith({}),
+      debounceTime(500),
+      switchMap(() =>
+        this.tasksService.getAll(this.findControl.value as string))).subscribe(data => {
+          this.taskDataSource = data;
+        });
   }
 
   onRegisterTask() {

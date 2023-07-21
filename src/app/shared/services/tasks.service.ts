@@ -12,9 +12,9 @@ export class TasksService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getAll() {
+  getAll(find?: string) {
     const userId = this.authService.getCurrentUser()?.id;
-    return this.http.get<ITask[]>(`${environment.apiUrl}/tasks/user/${userId}`);
+    return this.http.get<ITask[]>(`${environment.apiUrl}/tasks/user/${userId}${find ? '?find=' + find : ''}`);
   }
 
   update(id: string, createTask: ICreateTask) {

@@ -2,7 +2,12 @@
   <app-header></app-header>
 
   <div class="content">
-    <div class="add-button">
+    <div class="header">
+      <mat-form-field>
+        <mat-label>Pesquisar tarefa</mat-label>
+        <input matInput [formControl]="findControl" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
       <button mat-button (click)="onRegisterTask()">
         <mat-icon>add</mat-icon>
       </button>
