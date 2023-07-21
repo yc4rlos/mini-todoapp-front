@@ -15,4 +15,8 @@ export class UsersService {
     return this.http.post<IUser>(`${environment.apiUrl}/users`, createUser);
   }
 
+  update(id: string, userData: ICreateUser) {
+    return this.http.put<IUser>(`${environment.apiUrl}/users/${id}`, userData);
+  }
+
 }

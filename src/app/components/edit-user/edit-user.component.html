@@ -1,0 +1,13 @@
+<div class="modal">
+  <div class="header">
+    <h2>Editar dados pessoais</h2>
+    <mat-icon (click)="onClose()">close</mat-icon>
+  </div>
+  <div class="content">
+    <app-user-form
+      buttonText="Atualizar"
+      [data]="currentUser"
+      (submitForm)="submitForm($event)"
+    ></app-user-form>
+  </div>
+</div>

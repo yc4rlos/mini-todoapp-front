@@ -11,12 +11,16 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private token!: string | undefined;
+    private storedToken!: string | undefined;
 
     constructor(
         private http: HttpClient,
         private router: Router
     ) { }
+
+    get token(): string | undefined {
+        return this.storedToken || String(localStorage.getItem('token'));
+    }
 
     login(login: ILogin) {
         return this.http.post<ILoginRespose>(`${environment.apiUrl}/auth/login`, login).pipe(tap(data => {
@@ -25,21 +29,32 @@ export class AuthService {
                 return;
             }
 
-            this.token = data.token;
+            this.storedToken = data.token;
+        }));
+    }
+
+    updateToken() {
+        return this.http.get<ILoginRespose>(`${environment.apiUrl}/auth/update-token`).pipe(tap(data => {
+            if (!this.storedToken) {
+                localStorage.setItem('token', data.token);
+                return;
+            }
+
+            this.storedToken = data.token;
         }));
     }
 
     getCurrentUser(): IUser | undefined {
-        const token = this.token || String(localStorage.getItem('token'));
-        if (token) {
-            const user: IUser = jwtDecode(token);
+
+        if (this.token) {
+            const user: IUser = jwtDecode(this.token);
             return user;
         }
         return;
     }
 
     logout() {
-        this.token = undefined;
+        this.storedToken = undefined;
         localStorage.clear();
         this.router.navigate(['/login']);
     }

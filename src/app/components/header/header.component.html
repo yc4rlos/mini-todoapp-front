@@ -6,7 +6,7 @@
     <div class="user-image">
       {{ userInitials }}
     </div>
-    <div class="user-name">
+    <div class="user-name" *ngIf="currentUser">
       <small>{{ currentUser.name }}</small>
       <small>{{ currentUser.lastname }}</small>
     </div>
@@ -19,7 +19,7 @@
       <mat-icon>menu_open</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="onEditUser()">
         <mat-icon>edit</mat-icon>
         <span>Editar dados pessoais</span>
       </button>

@@ -1,0 +1,69 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+  <mat-form-field appearance="outline">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name" placeholder="Digite o seu nome" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sobrenome</mat-label>
+    <input
+      color="primary"
+      matInput
+      formControlName="lastname"
+      placeholder="Digite o seu sobrenome"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>E-mail</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      placeholder="Digite o seu e-mail"
+      type="email"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Senha</mat-label>
+    <input
+      matInput
+      formControlName="password"
+      placeholder="Digite a sua senha"
+      [type]="showPassword ? 'text' : 'password'"
+    />
+    <div
+      matSuffix
+      class="change-password-visiblity"
+      (click)="onChangePasswordVisibility()"
+    >
+      <ng-container *ngIf="!showPassword; else HidePassword">
+        <mat-icon>visibility</mat-icon>
+      </ng-container>
+
+      <ng-template #HidePassword>
+        <mat-icon>visibility-off</mat-icon>
+      </ng-template>
+    </div>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Confirmar Senha</mat-label>
+    <input
+      matInput
+      formControlName="confirmPassword"
+      placeholder="Confirme sua senha"
+      [type]="showConfirmPassword ? 'text' : 'password'"
+    />
+    <div
+      class="change-password-visiblity"
+      matSuffix
+      (click)="onChangeConfirmPasswordVisibility()"
+    >
+      <ng-container *ngIf="!showPassword; else HidePassword">
+        <mat-icon>visibility</mat-icon>
+      </ng-container>
+
+      <ng-template #HidePassword>
+        <mat-icon>visibility-off</mat-icon>
+      </ng-template>
+    </div>
+  </mat-form-field>
+  <button mat-button type="submit">{{ buttonText }}</button>
+</form>

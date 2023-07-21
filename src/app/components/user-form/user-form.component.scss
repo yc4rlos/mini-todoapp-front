@@ -1,0 +1,15 @@
+@import "src/assets/styles/color-palette.scss";
+
+form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  flex-direction: column;
+  min-width: 400px;
+
+  button[type="submit"] {
+    background-color: $purple-main-color;
+    height: calc(100% - 22px);
+  }
+}
