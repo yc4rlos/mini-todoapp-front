@@ -3,17 +3,21 @@ import { Observable, catchError, finalize } from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Injectable } from "@angular/core";
+import { LoaderService } from "../services/loader.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
     constructor(
+        private readonly loaderService: LoaderService,
         private readonly authService: AuthService,
         public snackbar: MatSnackBar
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): any {
         let request: HttpRequest<any> = req;
+
+        this.loaderService.show();
 
         const token = this.authService.token;
         if (token)
@@ -26,6 +30,12 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request)
             .pipe(
                 catchError(err => this.handleError(err)),
+                finalize(() => {
+                    setTimeout(() => {
+                        this.loaderService.hide();
+
+                    }, 200);
+                })
             );
     }
 
