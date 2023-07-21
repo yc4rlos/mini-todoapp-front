@@ -8,3 +8,12 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+// Estilo para botão de visualizar senha em formulário
+form {
+  div.change-password-visiblity {
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+  }
+}
