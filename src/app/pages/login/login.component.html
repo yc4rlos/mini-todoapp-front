@@ -5,10 +5,12 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
       <mat-form-field appearance="outline">
         <mat-label>E-mail</mat-label>
+        <mat-icon matPrefix>mail</mat-icon>
         <input matInput formControlName="email" label="Digite seu e-mail" />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Senha</mat-label>
+        <mat-icon matPrefix>key</mat-icon>
         <input
           matInput
           formControlName="password"

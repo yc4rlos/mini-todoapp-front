@@ -22,6 +22,10 @@ main {
       min-width: 400px;
       width: 30%;
 
+      mat-icon {
+        color: white;
+      }
+
       button[type="submit"] {
         background-color: $purple-main-color;
         margin: 14px 0px;
