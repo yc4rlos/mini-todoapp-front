@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateTaskComponent } from 'src/app/components/create-task/create-task.component';
 import { ITask } from 'src/app/shared/models/task.interface';
 import { TasksService } from 'src/app/shared/services/tasks.service';
@@ -17,7 +18,8 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -52,6 +54,13 @@ export class TasksComponent implements OnInit {
       if (dialogRef.componentInstance.formSubmitted)
         this.setTaskDataSource();
 
+    });
+  }
+
+  updateComplete(id: string, value: boolean) {
+    this.tasksService.updateComplete(id, value).subscribe(() => {
+      this.snackbar.open('Tarefa atualizada!', '', { duration: 4000 });
+      this.setTaskDataSource();
     });
   }
 

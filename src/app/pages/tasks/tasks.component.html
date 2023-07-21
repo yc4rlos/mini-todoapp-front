@@ -9,14 +9,39 @@
     </div>
 
     <div class="task-list">
-      <div *ngFor="let task of taskDataSource">
+      <div
+        *ngFor="let task of taskDataSource"
+        [ngClass]="{ complete: task.complete }"
+      >
         <div class="header">
           <h3>{{ task.title }}</h3>
-          <button mat-button class="edit" (click)="onEditTask(task)">
-            <mat-icon>edit</mat-icon>
-          </button>
+          <div class="buttons">
+            <button mat-button class="edit" (click)="onEditTask(task)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <ng-container *ngIf="!task.complete; else CancelCompleteTask">
+              <button
+                mat-button
+                class="done"
+                (click)="updateComplete(task.id, true)"
+              >
+                <mat-icon>done</mat-icon>
+              </button>
+            </ng-container>
+
+            <ng-template #CancelCompleteTask>
+              <button
+                mat-button
+                class="cancel"
+                (click)="updateComplete(task.id, false)"
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </ng-template>
+          </div>
         </div>
-        <p class="description">
+        <p class="description" *ngIf="task.description">
           {{ task.description }}
         </p>
       </div>

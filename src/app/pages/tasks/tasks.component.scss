@@ -25,11 +25,13 @@ main {
 
       > div {
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        height: auto;
         border-radius: 8px;
         padding: 6px 16px;
         background: $black-color;
 
         div.header {
+          height: auto;
           align-items: center;
           display: flex;
           justify-content: space-between;
@@ -38,9 +40,29 @@ main {
             margin: 0;
           }
 
-          button.edit {
+          button {
             width: 24px;
+
+            mat-icon {
+              margin: 0;
+            }
           }
+
+          button.edit:hover mat-icon {
+            color: yellow;
+          }
+
+          button.done:hover mat-icon {
+            color: $green-success-color;
+          }
+
+          button.cancel:hover mat-icon {
+            color: $red-danger-color;
+          }
+        }
+
+        &.complete {
+          background-color: $purple-main-color;
         }
       }
     }

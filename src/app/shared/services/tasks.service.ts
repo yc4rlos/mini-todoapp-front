@@ -22,6 +22,14 @@ export class TasksService {
     return this.http.put<ITask>(`${environment.apiUrl}/tasks/${id}`, createTask);
   }
 
+  updateComplete(id: string, value: boolean) {
+    return this.http.patch<ITask>(`${environment.apiUrl}/tasks/${id}`, [{
+      path: "complete",
+      op: "replace",
+      value: value
+    }]);
+  }
+
   create(createTask: ICreateTask) {
     createTask.userId = this.authService.getCurrentUser()?.id;
     return this.http.post<ITask>(`${environment.apiUrl}/tasks`, createTask);
