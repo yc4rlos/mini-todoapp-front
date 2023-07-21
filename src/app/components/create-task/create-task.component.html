@@ -1,0 +1,30 @@
+<div class="modal">
+  <div class="header">
+    <h2>Adicionar tarefa</h2>
+    <mat-icon (click)="onClose()">close</mat-icon>
+  </div>
+  <div class="content">
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmitForm()">
+      <mat-form-field appearance="outline">
+        <mat-label>Título</mat-label>
+        <input
+          matInput
+          formControlName="title"
+          placeholder="Digite o título da tarefa"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Digite a descrição tarefa da tarefa"
+          rows="5"
+        >
+        </textarea>
+      </mat-form-field>
+      <button mat-button type="submit">Adicionar</button>
+    </form>
+  </div>
+</div>

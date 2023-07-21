@@ -1,15 +1,12 @@
 @import "src/assets/styles/color-palette.scss";
 
 form {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   flex-direction: column;
-  min-width: 400px;
-  width: 30%;
 
   button[type="submit"] {
     background-color: $purple-main-color;
-    height: calc(100% - 22px);
   }
 }

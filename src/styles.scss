@@ -1,3 +1,4 @@
+@import "src/assets/styles/color-palette.scss";
 /* You can add global styles to this file, and also import other style files */
 
 html,
@@ -18,6 +19,26 @@ form {
   }
 }
 
-// Estilo para o dialog do angular material
-.dialog-standard {
+// Estilo para as modais do sistema
+
+div.modal {
+  background-color: $black-color;
+
+  .header {
+    color: white;
+    background-color: $black-color;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    mat-icon {
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    padding: 20px;
+  }
 }

@@ -46,9 +46,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onEditUser() {
-    const dialogRef = this.dialog.open(EditUserComponent, {
-      panelClass: 'dialog-standard'
-    });
+    const dialogRef = this.dialog.open(EditUserComponent);
 
     dialogRef.afterClosed().subscribe(() => {
       if (dialogRef.componentInstance.dataUpdated) {

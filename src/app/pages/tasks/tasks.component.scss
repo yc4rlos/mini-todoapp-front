@@ -1,0 +1,19 @@
+@import "src/assets/styles/color-palette.scss";
+
+main {
+  div.content {
+    margin: 20px;
+  }
+
+  div.add-button {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      background-color: $purple-main-color;
+      mat-icon {
+        margin: 0;
+      }
+    }
+  }
+}
