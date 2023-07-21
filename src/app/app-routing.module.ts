@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'sigin', loadChildren: () => import('./pages/create-account/create-account.module').then(m => m.CreateAccountModule) },
+  { path: 'tasks', loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksModule) },
   { path: '**', redirectTo: 'login' }
 ];
 

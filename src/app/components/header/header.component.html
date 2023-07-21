@@ -1,0 +1,32 @@
+<nav>
+  <div class="logo">
+    <img src="./assets/images/Mesha-logo.png" alt="Logo Mesha Tecnologia" />
+  </div>
+  <div class="user-data">
+    <div class="user-image">
+      {{ userInitials }}
+    </div>
+    <div class="user-name">
+      <small>{{ currentUser.name }}</small>
+      <small>{{ currentUser.lastname }}</small>
+    </div>
+    <button
+      class="menu"
+      [matMenuTriggerFor]="menu"
+      aria-label="Ícone de menu de opções"
+      mat-button
+    >
+      <mat-icon>menu_open</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Editar dados pessoais</span>
+      </button>
+      <button mat-menu-item (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+  </div>
+</nav>

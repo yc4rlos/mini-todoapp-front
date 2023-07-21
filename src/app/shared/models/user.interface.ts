@@ -2,7 +2,7 @@ import { IBase } from "./base.interface";
 
 export interface IUser extends IBase {
     name: string;
-    lastName: string;
+    lastname: string;
     email: string;
     password: string;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { ICreateUser } from 'src/app/shared/models/create-user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UsersService } from 'src/app/shared/services/users.service';
@@ -27,7 +28,8 @@ export class CreateAccountComponent {
   constructor(
     private snackbar: MatSnackBar,
     private usersService: UsersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   onSubmitForm() {
@@ -43,8 +45,8 @@ export class CreateAccountComponent {
 
     const user = this.accountForm.value as ICreateUser;
     this.usersService.create(user).subscribe(() => {
-      this.authService.login({ email: user.email, password: user.password, remember: false }).subscribe(data => {
-        console.log(data);
+      this.authService.login({ email: user.email, password: user.password, remember: false }).subscribe(() => {
+        this.router.navigate(['/tasks']);
       });
     });
   }

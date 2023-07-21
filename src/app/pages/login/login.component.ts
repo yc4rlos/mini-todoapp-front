@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ILogin } from 'src/app/shared/models/login.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +22,20 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
+  ngOnInit() {
+    this.checkIfIsLoggedIn();
+  }
+
+  private checkIfIsLoggedIn() {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser != undefined) {
+      this.router.navigate(['/tasks']);
+    }
+  }
 
   onSubmitForm() {
 
@@ -35,10 +47,9 @@ export class LoginComponent {
     const login = this.loginForm.value as ILogin;
     this.authService.login(login).subscribe({
       next: () => {
-
+        this.router.navigate(['/tasks']);
       },
       error: (e) => {
-        console.log(e);
         this.snackbar.open('E-mail ou senha inválidos', '', { duration: 4000 });
       }
     });

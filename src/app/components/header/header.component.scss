@@ -1,0 +1,65 @@
+@import "src/assets/styles/color-palette.scss";
+nav {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 100px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: $black-color;
+
+  .logo img {
+    width: 80px;
+  }
+
+  div.user-data {
+    display: flex;
+
+    div.user-image {
+      background-color: white;
+      color: black;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 900;
+      font-size: 28px;
+      align-items: center;
+      cursor: default;
+    }
+
+    div.user-name {
+      margin-left: 8px;
+      padding-top: 4px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+
+      small {
+        width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .menu {
+      margin-left: 20px;
+      border-radius: 50%;
+      min-width: 30px;
+      min-height: 30px;
+      display: flex;
+      justify-content: center;
+
+      mat-icon {
+        margin: 0px;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
