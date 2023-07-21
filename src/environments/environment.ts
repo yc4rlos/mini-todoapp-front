@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: "https://localhost:44306"
+    apiUrl: "https://mesha-test-backend.azurewebsites.net"
 };
