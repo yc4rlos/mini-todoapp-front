@@ -17,7 +17,12 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): any {
         let request: HttpRequest<any> = req;
 
-        this.loaderService.show();
+        const hideLoader = req.headers.get('hide-loader');
+
+        console.log(hideLoader)
+
+        if (!hideLoader)
+            this.loaderService.show();
 
         const token = this.authService.token;
         if (token)
@@ -32,9 +37,10 @@ export class AuthInterceptor implements HttpInterceptor {
                 catchError(err => this.handleError(err)),
                 finalize(() => {
                     setTimeout(() => {
-                        this.loaderService.hide();
+                        if (!hideLoader)
+                            this.loaderService.hide();
 
-                    }, 200);
+                    }, 400);
                 })
             );
     }

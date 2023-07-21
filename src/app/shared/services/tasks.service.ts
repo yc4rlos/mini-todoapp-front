@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICreateTask } from '../models/create-task.interface';
 import { environment } from 'src/environments/environment';
@@ -12,9 +12,12 @@ export class TasksService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getAll(find?: string) {
+  getAll(find?: string, hideLoader = false) {
+
+    const headers = new HttpHeaders({ "hide-loader": "true" });
+
     const userId = this.authService.getCurrentUser()?.id;
-    return this.http.get<ITask[]>(`${environment.apiUrl}/tasks/user/${userId}${find ? '?find=' + find : ''}`);
+    return this.http.get<ITask[]>(`${environment.apiUrl}/tasks/user/${userId}${find ? '?find=' + find : ''}`, { headers });
   }
 
   update(id: string, createTask: ICreateTask) {

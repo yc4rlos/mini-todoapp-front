@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateTaskComponent } from 'src/app/components/create-task/create-task.component';
 import { ITask } from 'src/app/shared/models/task.interface';
 import { TasksService } from 'src/app/shared/services/tasks.service';
-import { startWith, debounceTime, switchMap } from 'rxjs';
+import { startWith, debounceTime, switchMap, merge, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -17,6 +17,7 @@ export class TasksComponent implements OnInit {
   taskDataSource: ITask[] = [];
 
   findControl = new FormControl('');
+  updateTasks = new Subject<null>();
 
   displayedColumns = ['name', 'description',];
 
@@ -31,11 +32,11 @@ export class TasksComponent implements OnInit {
   }
 
   setTaskDataSource() {
-    this.findControl.valueChanges.pipe(
+    merge(this.findControl.valueChanges, this.updateTasks).pipe(
       startWith({}),
       debounceTime(500),
       switchMap(() =>
-        this.tasksService.getAll(this.findControl.value as string))).subscribe(data => {
+        this.tasksService.getAll(this.findControl.value as string, true))).subscribe(data => {
           this.taskDataSource = data;
         });
   }
@@ -47,7 +48,7 @@ export class TasksComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       if (dialogRef.componentInstance.formSubmitted)
-        this.setTaskDataSource();
+        this.updateTasks.next(null);
 
     });
   }
@@ -60,7 +61,7 @@ export class TasksComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       if (dialogRef.componentInstance.formSubmitted)
-        this.setTaskDataSource();
+        this.updateTasks.next(null);
 
     });
   }
@@ -68,7 +69,7 @@ export class TasksComponent implements OnInit {
   updateComplete(id: string, value: boolean) {
     this.tasksService.updateComplete(id, value).subscribe(() => {
       this.snackbar.open('Tarefa atualizada!', '', { duration: 4000 });
-      this.setTaskDataSource();
+      this.updateTasks.next(null);
     });
   }
 
