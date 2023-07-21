@@ -45,13 +45,8 @@ export class LoginComponent {
     }
 
     const login = this.loginForm.value as ILogin;
-    this.authService.login(login).subscribe({
-      next: () => {
-        this.router.navigate(['/tasks']);
-      },
-      error: (e) => {
-        this.snackbar.open('E-mail ou senha inválidos', '', { duration: 4000 });
-      }
+    this.authService.login(login).subscribe(() => {
+      this.router.navigate(['/tasks']);
     });
   }
 

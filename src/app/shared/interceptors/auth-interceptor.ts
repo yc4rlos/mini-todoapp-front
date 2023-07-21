@@ -50,10 +50,10 @@ export class AuthInterceptor implements HttpInterceptor {
                     this.snackbar.open('Você não tem permissão para essa ação.', '', { duration: 4000 });
                     break;
                 case 404:
-                    this.snackbar.open('Rota não encontrada.', '', { duration: 4000 });
+                    this.snackbar.open('Dados não encontrados.', '', { duration: 4000 });
                     break;
-                case 500:
-                    this.snackbar.open('Erro na API.', '', { duration: 4000 });
+                case 400:
+                    this.snackbar.open(err.error, '', { duration: 4000 });
                     break;
                 default:
                     subscribe.error(err)
