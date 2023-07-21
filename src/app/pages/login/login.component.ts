@@ -44,4 +44,8 @@ export class LoginComponent {
     });
   }
 
+  onChangePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 }
