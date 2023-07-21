@@ -14,11 +14,8 @@ export class AppComponent {
   constructor(private loaderService: LoaderService) { }
 
   ngOnInit(): void {
-    // Ativa a escuta do subject do loader
-    setTimeout(() => {
-      this.loaderService.activeSubsject.subscribe(value => {
-        this.isActive = value;
-      })
-    }, 0);
+    this.loaderService.activeSubsject.subscribe(value => {
+      this.isActive = value;
+    });
   }
 }
