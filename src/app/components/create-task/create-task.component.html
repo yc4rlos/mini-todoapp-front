@@ -1,6 +1,6 @@
 <div class="modal">
   <div class="header">
-    <h2>Adicionar tarefa</h2>
+    <h2>{{ mode == "create" ? "Adicionar" : "Atualizar" }} tarefa</h2>
     <mat-icon (click)="onClose()">close</mat-icon>
   </div>
   <div class="content">
@@ -24,7 +24,9 @@
         >
         </textarea>
       </mat-form-field>
-      <button mat-button type="submit">Adicionar</button>
+      <button mat-button type="submit">
+        {{ mode == "create" ? "Adicionar" : "Atualizar" }}
+      </button>
     </form>
   </div>
 </div>

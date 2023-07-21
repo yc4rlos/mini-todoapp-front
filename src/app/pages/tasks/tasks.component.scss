@@ -23,9 +23,10 @@ main {
       gap: 20px;
       grid-template-columns: repeat(2, 1fr);
 
-      div {
+      > div {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         border-radius: 8px;
-        padding: 6px 10px;
+        padding: 6px 16px;
         background: $black-color;
 
         div.header {
@@ -40,10 +41,6 @@ main {
           button.edit {
             width: 24px;
           }
-        }
-
-        p.description {
-          margin: 10px;
         }
       }
     }

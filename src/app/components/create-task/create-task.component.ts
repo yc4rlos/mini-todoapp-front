@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ICreateTask } from 'src/app/shared/models/create-task.interface';
+import { ITask } from 'src/app/shared/models/task.interface';
 import { TasksService } from 'src/app/shared/services/tasks.service';
 
 @Component({
@@ -18,6 +19,8 @@ import { TasksService } from 'src/app/shared/services/tasks.service';
 })
 export class CreateTaskComponent implements OnInit {
 
+  mode!: 'create' | 'edit';
+
   formSubmitted = false;
 
   taskForm = new FormGroup({
@@ -26,27 +29,58 @@ export class CreateTaskComponent implements OnInit {
   });
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public task: ITask,
     private dialogRef: MatDialogRef<CreateTaskComponent>,
     private snackbar: MatSnackBar,
     private tasksService: TasksService
   ) { }
 
   ngOnInit() {
+    this.setMode();
+  }
+
+  setMode() {
+    if (this.task) {
+      this.mode = 'edit'
+      this.setTaskValues();
+      return;
+    }
+
+    this.mode = 'create';
+  }
+
+  setTaskValues() {
+
+    const { title, description } = this.task;
+
+    this.taskForm.setValue({
+      title,
+      description
+    });
   }
 
   onSubmitForm() {
     if (this.taskForm.invalid) {
-      this.snackbar.open('Preencha todos os campos', '', { duration: 4000 });
+      this.snackbar.open('O Título é obrigatório', '', { duration: 4000 });
       return;
     }
 
     const task = { ...this.taskForm.value } as ICreateTask;
 
-    this.tasksService.create(task).subscribe(() => {
-      this.snackbar.open('Tarefa registrada!', '', { duration: 4000 });
+    if (this.mode == 'create') {
+      this.tasksService.create(task).subscribe(() => {
+        this.snackbar.open('Tarefa registrada!', '', { duration: 4000 });
+        this.formSubmitted = true;
+        this.onClose();
+      });
+      return;
+    }
+    this.tasksService.update(this.task.id, task).subscribe(() => {
+      this.snackbar.open('Tarefa atualizada!', '', { duration: 4000 });
       this.formSubmitted = true;
       this.onClose();
     });
+
   }
 
   onClose() {

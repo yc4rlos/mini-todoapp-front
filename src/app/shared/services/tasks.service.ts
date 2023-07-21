@@ -12,14 +12,20 @@ export class TasksService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
+  getAll() {
+    const userId = this.authService.getCurrentUser()?.id;
+    return this.http.get<ITask[]>(`${environment.apiUrl}/tasks/user/${userId}`);
+  }
+
+  update(id: string, createTask: ICreateTask) {
+    createTask.userId = this.authService.getCurrentUser()?.id;
+    return this.http.put<ITask>(`${environment.apiUrl}/tasks/${id}`, createTask);
+  }
+
   create(createTask: ICreateTask) {
     createTask.userId = this.authService.getCurrentUser()?.id;
     return this.http.post<ITask>(`${environment.apiUrl}/tasks`, createTask);
   }
 
-  getAll() {
-    const userId = this.authService.getCurrentUser()?.id;
-    return this.http.get<ITask[]>(`${environment.apiUrl}/tasks/user/${userId}`);
-  }
 
 }

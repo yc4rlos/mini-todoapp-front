@@ -42,4 +42,17 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  onEditTask(task: ITask) {
+    const dialogRef = this.dialog.open(CreateTaskComponent, {
+      minWidth: '400px',
+      data: task
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      if (dialogRef.componentInstance.formSubmitted)
+        this.setTaskDataSource();
+
+    });
+  }
+
 }

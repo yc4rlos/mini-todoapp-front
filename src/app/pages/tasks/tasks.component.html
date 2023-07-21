@@ -12,7 +12,7 @@
       <div *ngFor="let task of taskDataSource">
         <div class="header">
           <h3>{{ task.title }}</h3>
-          <button mat-button class="edit">
+          <button mat-button class="edit" (click)="onEditTask(task)">
             <mat-icon>edit</mat-icon>
           </button>
         </div>
